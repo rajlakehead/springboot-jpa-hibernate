@@ -1,5 +1,7 @@
 package com.luv2code.mycoolapp;
 
+import com.luv2code.mycoolapp.dao.StudentDAO;
+import com.luv2code.mycoolapp.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +15,19 @@ public class MycoolappApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(String[] args) {
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			System.out.println("Hello World!");
+			createStudent(studentDAO);
 		};
+	}
+
+	private void createStudent(StudentDAO studentDAO) {
+
+		Student newStudent = new Student("Raj", "Patel", "raj@gmail.com");
+
+		studentDAO.save(newStudent);
+
+		System.out.println("Saved student id: " + newStudent.getId());
 	}
 
 }
