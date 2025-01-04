@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class MycoolappApplication {
 
@@ -17,13 +19,42 @@ public class MycoolappApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createStudent(studentDAO);
+			//createStudent(studentDAO);
+			//readStudent(studentDAO);
+			//getAllStudents(studentDAO);
+			getStudentsByLastName(studentDAO);
 		};
+	}
+
+	private void getStudentsByLastName(StudentDAO studentDAO) {
+		List<Student> students = studentDAO.findByLastName("Panchal");
+
+		for(Student s: students){
+			System.out.println(s);
+		}
+	}
+
+	private void getAllStudents(StudentDAO studentDAO) {
+		List<Student> students = studentDAO.findAll();
+		System.out.println(students);
+	}
+
+	private void readStudent(StudentDAO studentDAO) {
+
+		Student newStudent = new Student("Anjali", "Patel", "Anjali@gmail.com");
+
+		studentDAO.save(newStudent);
+
+		int theId = newStudent.getId();
+
+		Student myStudent = studentDAO.findById(theId);
+		System.out.println(myStudent);
+
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
 
-		Student newStudent = new Student("Raj", "Patel", "raj@gmail.com");
+		Student newStudent = new Student("Nihar", "Panchal", "jaakjsn@gmail.com");
 
 		studentDAO.save(newStudent);
 
