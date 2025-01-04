@@ -22,8 +22,24 @@ public class MycoolappApplication {
 			//createStudent(studentDAO);
 			//readStudent(studentDAO);
 			//getAllStudents(studentDAO);
-			getStudentsByLastName(studentDAO);
+			//getStudentsByLastName(studentDAO);
+			//updateStudent(studentDAO);
+			deleteStudent(studentDAO);
+
 		};
+	}
+
+	private void deleteStudent(StudentDAO studentDAO) {
+		studentDAO.delete(2);
+
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		Student student = studentDAO.findById(2);
+		student.setFirstName("Bayo");
+		studentDAO.update(student);
+
+		System.out.println(student);
 	}
 
 	private void getStudentsByLastName(StudentDAO studentDAO) {
